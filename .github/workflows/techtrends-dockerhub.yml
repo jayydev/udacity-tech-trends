@@ -2,7 +2,7 @@ name: TechTrends - Package with Docker
 
 on:
  push:
-  branches: [udacity-tech-trends]
+  branches: [udacity-tech-trends-proj]
 
 jobs:
  build:
