@@ -26,7 +26,12 @@ jobs:
       https://hub.docker.com/repository/docker/jayjs/tech-trends
      tags: |
       type=schedule
-      type:sha
+      type=semver,pattern={{version}}
+      type=semver,pattern={{major}}.{{minor}}
+      type=semver,pattern={{major}}
+      type=ref,event=branch
+      type=ref,event=pr
+      type=sha
    -
     name: Set up QEMU
     uses: docker/setup-qemu-action@v2
