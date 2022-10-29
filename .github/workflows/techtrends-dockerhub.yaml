@@ -18,6 +18,16 @@ jobs:
     name: checkout
     uses: actions/checkout@v1
    -
+    name: Docker meta
+    id: meta
+    uses: docker/metadata-action@v4
+    with:
+     images: |
+      https://hub.docker.com/repository/docker/jayjs/tech-trends
+     tags:
+      type=schedule
+      type:sha
+   -
     name: Set up QEMU
     uses: docker/setup-qemu-action@v2
    -

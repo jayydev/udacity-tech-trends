@@ -7,7 +7,11 @@ spec:
   selector:
     app: techtrends
   ports:
-  - port: {{ .Values.service.port }}
+  - port: {{ .Values.service.port }}    
+    {{ if .Values.service.targetPort }}
     targetPort: {{ .Values.service.targetPort }}
+    {{ else }}
+    targetPort: {{ .Values.service.port }}
+    {{ end }}
     protocol: {{ .Values.service.protocol }}
   type: {{ .Values.service.type }}

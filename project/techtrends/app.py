@@ -1,9 +1,7 @@
-from multiprocessing import connection
 import sqlite3
 import logging
 import sys
-from tkinter import W
-from turtle import screensize
+
 
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
@@ -66,8 +64,7 @@ def create():
             flash('Title is required!')
         else:
             connection = get_db_connection()
-            connection.execute('INSERT INTO posts (title, content) VALUES (?, ?)',
-                         (title, content))
+            connection.execute('INSERT INTO posts (title, content) VALUES (?, ?)', (title, content))
             connection.commit()
             connection.close()
 
@@ -80,9 +77,19 @@ def create():
 @app.route('/healthz')
 def healthz():
     logger.info("healthz called")
+    result = 'Ok - healthy'
+    status = 200
+    try:
+        conn = get_db_connection()
+        conn.execute('SELECT count(*) FROM posts')
+    except sqlite3.DatabaseError as error:    
+        logger.error("Failed to connect to datavase. Error = {}".format(error.args))
+        result = 'ERROR - unhealthy'
+        status = 500
+    
     response = app.response_class(
-    response = json.dumps({'result' : 'Ok - healthy'}), 
-    status = 200,
+    response = json.dumps({'result' : result}), 
+    status = status,
     mimetype="application/json"
     )
     return response
