@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+ name: techtrends
+ namespace: {{ .Values.namespace.name }}
+ labels:
+  app: techtrends
+
+spec:
+ replicas: {{ .Values.replicaCount }}
+ selector:
+  matchLabels:
+   app: techtrends
+ template:
+  metadata:
+   labels:
+    app: techtrends
+  spec:
+   containers:
+      - name: tech-trends
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        resources:
+         requests:
+          cpu: {{ .Values.resources.requests.cpu }}
+          memory: {{ .Values.resources.requests.memory }}
+         limits:          
+          cpu: {{ .Values.resources.limits.cpu }}
+          memory: {{ .Values.resources.limits.memory }}
+        ports:
+        - containerPort: {{ .Values.containerPort }}
+        livenessProbe: 
+         httpGet:
+          port: {{ .Values.containerPort }}
+          path: {{ .Values.livenessProbePath}}
+        readinessProbe:
+         httpGet:
+          port: {{ .Values.containerPort }}
+          path: {{ .Values.readinessProbePath}}
