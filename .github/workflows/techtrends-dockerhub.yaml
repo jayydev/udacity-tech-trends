@@ -24,7 +24,7 @@ jobs:
     with:
      images: |
       https://hub.docker.com/repository/docker/jayjs/tech-trends
-     tags:
+     tags: |
       type=schedule
       type:sha
    -
