@@ -47,6 +47,7 @@ jobs:
      filename: ./Dockerfile
      platform: linux/amd64, linux/arm64
      push: true
-     tags: "jayjs/tech-trends:latest"
+     #tags: "jayjs/tech-trends:latest"
+     tags: ${{ steps.meta.outputs.tags }}
     
 
