@@ -19,7 +19,7 @@ spec:
   spec:
    containers:
       - name: tech-trends
-        image: tech-trends:latest
+        image: jayjs/tech-trends:latest
         imagePullPolicy: IfNotPresent
         resources:
          requests:
@@ -38,3 +38,4 @@ spec:
          httpGet:
           port: 3111
           path: /healthz
+        restartPolicy: Never
